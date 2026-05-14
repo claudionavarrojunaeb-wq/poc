@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Test {
+  testid Int    @id @unique @default(autoincrement())
+  nombre String @db.VarChar(200)
+}
+
+model users {
+  userid    Int     @id @unique @default(autoincrement())
+  useremail String  @db.VarChar(100)
+  userpwd   String? @db.VarChar(255)
+  usertipo  Int
+  username  String  @db.VarChar(100)
+}
+
+model auditoriaaccesos {
+  id            Int      @id @unique @default(autoincrement())
+  userid        Int?
+  input_login   String?  @db.VarChar(200)
+  fecha_evento  DateTime
+  tipo_evento   String?  @db.VarChar(100)
+  direccion_ip  String?  @db.VarChar(100)
+  user_agent    String?  @db.VarChar(300)
+  detalle       String?
+  fecha_sistema DateTime @default(dbgenerated("LOCALTIMESTAMP")) @db.Timestamp(6)
+}
+
+model password_history {
+  id         Int       @id @default(autoincrement())
+  userid     Int
+  password   String
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model password_reset_tokens {
+  id         Int       @id @default(autoincrement())
+  userid     Int?
+  username   String?   @db.VarChar(100)
+  useremail  String?   @db.VarChar(100)
+  code       String    @db.VarChar(128)
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  expires_at DateTime? @db.Timestamptz(6)
+  used       Boolean?  @default(false)
+}
+
+model refresh_tokens {
+  id         Int       @id @default(autoincrement())
+  userid     Int
+  token_hash String    @db.VarChar(128)
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  expires_at DateTime? @db.Timestamptz(6)
+  revoked    Boolean?  @default(false)
+  user_agent String?
+  ip         String?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model log {
+  logid          Decimal   @id @db.Decimal(10, 0)
+  logusuariosid  String?   @db.VarChar(20)
+  logkey         Int?
+  logfecha       DateTime? @db.Timestamp(6)
+  loghora        String?   @db.VarChar(8)
+  logobjeto      String?   @db.VarChar(50)
+  logdescripcion String?   @db.VarChar(100)
+  logip          String?   @db.VarChar(20)
+}
+
+model ms_tokens {
+  id            Int       @id @default(autoincrement())
+  subject       String?   @unique
+  access_token  String?
+  refresh_token String?
+  expires_at    DateTime? @db.Timestamptz(6)
+  scope         String?
+  updated_at    DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model nuevos_csv {
+  id      Int     @id @default(autoincrement())
+  bcodmin String?
+  brutest String?
+  brutdv  String?
+  bnomest String?
+  bapepat String?
+  bapemat String?
+
+  @@index([bcodmin], map: "idx_nuevos_bcodmin")
+}

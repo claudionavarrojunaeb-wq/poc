@@ -1,0 +1,10 @@
+cuando el usuario haga click en "Olvide mi contraseña":
+1- se debe enviar un correo con un código autogenerado
+2- el usuario deberá ingresar el código en nueva página que lo solicitará
+3- al validar el código, el usuario deberá crear nueva contraseña segura, el sistema debe solicitar repetir la contraseña y validarla
+4- la nueva contraseña debe tener mínimo 8 caracteres de largo, por lo menos una mayuscula, un número y un caracter no alfanumérico
+5- la contraseña no puede ser igual a las 5 contraseñas anteriores
+consideraciones:
+1- en el login, el nombre de usuario es el correo columna useremail de la tabla users
+2- si la columna usertipo = 1, el usuario es interno y debe autenticar con ldap usando la columna useremail
+3- si la columna usertipo = 2, el usuario es externo y debe autenticar contra la contraseña en la columna userpwd

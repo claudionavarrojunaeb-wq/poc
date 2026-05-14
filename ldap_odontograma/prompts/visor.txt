@@ -1,0 +1,6 @@
+- en visor de archivo, antes de guardar que realice una copia de seguridad archivoYYYYMMDDHHMMSS
+- que permita previsualizar los md
+- que permita crear nuevo archivo
+
+- el boton de editar sea un icono de lapiz y el boton de guardar un icono de disquette, y el de previsualizar que sea un ojo
+agregar spinner

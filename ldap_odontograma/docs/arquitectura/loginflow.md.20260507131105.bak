@@ -1,0 +1,92 @@
+# Login flow — Flujo de autenticación
+
+Este documento describe el flujo de login de la aplicación y los archivos principales que intervienen.
+
+```mermaid
+flowchart TD
+  Start([Usuario abre formulario]) --> LoginUI([frontend/src/Login.tsx])
+  LoginUI --> SendLogin["POST /api/login (credenciales + turnstile)"]
+  SendLogin --> Turnstile["turnstile middleware\nbackend/middleware/turnstile.js"]
+  Turnstile --> AuthRoute["backend/routes/auth.js → handler /api/login"]
+
+  AuthRoute --> DBCheck{Buscar usuario en DB}
+  DBCheck -->|usertipo=2| VerifyPwd["Verificar contraseña (argon2)\n(verifyPassword / hashPassword en auth.js)"]
+  DBCheck -->|usertipo=1 o no en BD| LDAP["Intentar LDAP bind\nbackend/ldapts.js"]
+
+  VerifyPwd --> AuthOK
+  LDAP --> AuthOK
+  AuthOK["Credenciales válidas"] --> Audit["logLoginAttempt → backend/db.js"]
+  AuthOK --> CreateSession["Crear sesión JWT\nbackend/middleware/session.js (signSession)"]
+  CreateSession --> SetAccess["setSessionCookie(ssmm_session) — HttpOnly"]
+  CreateSession --> CreateRefresh["createRefreshToken() → refresh_tokens (hash en BD)\nsetRefreshCookie(ssmm_refresh) — HttpOnly"]
+  CreateSession --> CreateCsrf["generateCsrfToken() → setCsrfCookie(ssmm_csrf) (no-HttpOnly)"]
+  CreateCsrf --> Resp["200 OK (+ opcionally csrfToken en body como fallback)"]
+  Resp --> FrontendStore["frontend guarda csrfToken en localStorage si no puede leer la cookie\nfrontend/src/Login.tsx y frontend/src/csrf.ts"]
+  FrontendStore --> Authenticated["Usuario autenticado — usa ssmm_session cookie para peticiones"]
+
+  AuthFail["Credenciales inválidas"] --> AuditFail["logLoginAttempt → backend/db.js (LOGIN_FAILED)"]
+  AuditFail --> Respond401["401 invalid-credentials"]
+
+  AuthRoute -->|invalid| AuthFail
+
+  %% Refresh flow (resumen)
+  Authenticated -->|access expired| RefreshCall["POST /api/refresh → backend/routes/auth.js"]
+  RefreshCall --> VerifyRefresh["findValidRefreshToken / rotateRefreshToken → backend/middleware/session.js"]
+  VerifyRefresh --> NewSession["setSessionCookie + setRefreshCookie + nuevo csrfToken"]
+
+  %% Logout
+  Authenticated -->|logout| Logout["POST /api/logout → backend/routes/auth.js (verifyCsrf)"]
+  Logout --> Revoke["revokeRefreshToken(), clear cookies (session, refresh, csrf)"]
+
+  style Start fill:#f3f4f6,stroke:#333
+  style AuthOK fill:#ecfdf5,stroke:#088c4b
+  style AuthFail fill:#fff1f2,stroke:#be123c
+```
+
+## Descripción paso a paso
+
+1. Usuario completa el formulario y el frontend (`frontend/src/Login.tsx`) envía `POST /api/login` con:
+   - credenciales (username/password)
+   - token Turnstile (captcha)
+
+2. El request pasa por el middleware de Turnstile (`backend/middleware/turnstile.js`) que valida el token con el servicio Cloudflare (`backend/cloudflare.js` si aplica).
+
+3. El handler `/api/login` en `backend/routes/auth.js`:
+   - busca el usuario en la base de datos (`backend/db.js`)
+   - si `usertipo===2` verifica la contraseña con Argon2 (funciones en `auth.js`)
+   - si `usertipo===1` o no existe registro, intenta bind LDAP con `backend/ldapts.js`
+   - registra el intento con `logLoginAttempt` (audit) en `backend/db.js`
+
+4. Si la autenticación es correcta:
+   - crea un JWT de sesión con `signSession` (`backend/middleware/session.js`) y lo envía en cookie `ssmm_session` (HttpOnly)
+   - crea un refresh token raw, guarda su hash en la tabla `refresh_tokens` y envía cookie `ssmm_refresh` (HttpOnly)
+   - genera un token CSRF (`backend/middleware/csrf.js`) y lo pone en cookie `ssmm_csrf` (no-HttpOnly) — además puede devolver `csrfToken` en el body como fallback para clientes que no pueden leer la cookie
+
+5. El frontend (por ejemplo `frontend/src/csrf.ts` y `frontend/src/Login.tsx`) lee el `ssmm_csrf` o usa el `csrfToken` devuelto y lo almacena como fallback (`localStorage`) si la cookie no es accesible. Las peticiones mutantes posteriores incluyen el header `X-CSRF-Token`.
+
+6. Refresh tokens: cuando el access token expira, el cliente puede llamar `POST /api/refresh` (ruta en `backend/routes/auth.js`) que usa `findValidRefreshToken` y `rotateRefreshToken` en `backend/middleware/session.js` para rotar y revocar tokens, emitir nuevo `ssmm_session` y `ssmm_refresh`, y rotar el CSRF token.
+
+7. Logout: `POST /api/logout` (en `backend/routes/auth.js`) verifica CSRF, revoca el refresh token y limpia cookies.
+
+## Archivos principales involucrados
+
+- **Frontend (UI/login + manejo CSRF)**: [frontend/src/Login.tsx](frontend/src/Login.tsx) — formulario, request `POST /api/login`, guarda `csrfToken` fallback.
+- **Frontend (helper CSRF)**: [frontend/src/csrf.ts](frontend/src/csrf.ts) — lectura fallback de `ssmm_csrf` o `localStorage`.
+- **Route login / refresh / logout**: [backend/routes/auth.js](backend/routes/auth.js) — handlers `/api/login`, `/api/refresh`, `/api/logout`, y endpoints CSRF/forgot-password.
+- **Session & refresh helpers**: [backend/middleware/session.js](backend/middleware/session.js) — `signSession`, `setSessionCookie`, `createRefreshToken`, `rotateRefreshToken`, `findValidRefreshToken`, `requireAuth`.
+- **CSRF**: [backend/middleware/csrf.js](backend/middleware/csrf.js) — `generateCsrfToken`, `setCsrfCookie`, `verifyCsrf` (double-submit).
+- **Turnstile / Cloudflare**: [backend/middleware/turnstile.js](backend/middleware/turnstile.js) and [backend/cloudflare.js](backend/cloudflare.js) — validación CAPTCHA.
+- **LDAP bind**: [backend/ldapts.js](backend/ldapts.js) — `tryBind`, `buildPrincipalFormats`.
+- **DB / auditoría**: [backend/db.js](backend/db.js) — pool, `logLoginAttempt`, y consultas a `users`.
+- **Error logging**: [backend/lib/errorLog.js](backend/lib/errorLog.js) — trazabilidad de errores.
+
+## Notas de seguridad y comportamiento
+
+- `ssmm_session` y `ssmm_refresh` se envían como cookies `HttpOnly` para protegerlos del acceso JS.
+- `ssmm_csrf` se envía como cookie accesible por JS (no-HttpOnly) para el double-submit; en entornos donde la cookie está bloqueada el servidor puede devolver `csrfToken` en el body como fallback.
+- Los refresh tokens se almacenan en BD hasheados (sha256) y son rotativos; al rotar se revoca el anterior.
+- La verificación de contraseña usa Argon2 (`argon2id`) y existe soporte de migración desde texto plano.
+
+---
+
+_Archivo generado automáticamente por la herramienta de apoyo. Si quieres que añada el diagrama como imagen SVG renderizada, puedo generarla y adjuntarla._

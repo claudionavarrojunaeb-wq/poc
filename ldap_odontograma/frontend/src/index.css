@@ -1,0 +1,184 @@
+/* Tailwind se importa al comienzo para que sus utilidades, preflight y tokens queden disponibles
+   en toda la aplicacion antes de las reglas globales propias del proyecto. */
+@import "tailwindcss";
+
+/*
+	:root centraliza variables de color, tipografia y sombreado usadas por la plantilla global.
+	Aunque parte de estos valores proviene del scaffold inicial, se documentan para facilitar estudio
+	y futuras limpiezas o sustituciones cuando el proyecto consolide su propio sistema visual.
+*/
+:root {
+  /* Variables base de color para texto, encabezados, fondos y acentos. */
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  /* Familias tipograficas base para texto corrido, titulos y contenido monoespaciado. */
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  /* Estas propiedades fijan la apariencia tipografica y el renderizado general del documento. */
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* En anchos menores se reduce el tamano base para mantener proporcion visual y legibilidad. */
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+/*
+	Este bloque redefine variables cuando el sistema operativo prefiere tema oscuro.
+	La estrategia usa las mismas custom properties para que el resto de reglas no se duplique.
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  /* El icono se invierte en oscuro para no perder contraste sobre fondos mas profundos. */
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+/* #root deja de imponer ancho fijo y borde del scaffold para que los layouts Tailwind controlen todo el lienzo. */
+#root {
+  width: 100%;
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+
+/* El body mantiene la fuente base y elimina el margen por defecto para que el layout Tailwind ocupe todo el viewport. */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 42%, #f7fbff 100%);
+}
+
+/* code y .counter compartian una presentacion monoespaciada dentro de la plantilla base. */
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+/* code aplicaba un fondo diferenciado para fragmentos de texto tecnico o ejemplos inline. */
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+/*
+ * Estilos específicos para el visor de archivos Markdown (#md-preview).
+ * Tailwind "prose" aplica por defecto un fondo casi negro con texto blanco/gris
+ * a los <code> inline. Se usa !important para garantizar que estas reglas
+ * sobreescriban cualquier especificidad que prose genere, incluso en versiones
+ * que usen !important internamente o variables CSS de alta prioridad.
+ *
+ * Estructura:
+ *  - #md-preview code          → todos los <code> dentro del visor: fondo gris claro
+ *  - #md-preview pre code      → dentro de bloques <pre>: revertir a transparente
+ *  - ::before / ::after        → prose añade comillas decorativas; las eliminamos
+ */
+#md-preview code {
+  background: #e8e8e8 !important;
+  color: #1a1a1a !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 0.875em !important;
+  font-weight: 500 !important;
+}
+/* Dentro de bloques de código preformateado, revertir al color del tema */
+#md-preview pre code {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+/* Prose añade comillas decorativas alrededor del código inline; las eliminamos */
+#md-preview code::before,
+#md-preview code::after {
+  content: '' !important;
+}
+
+/* Mostrar barras de scroll más visibles y reservar gutter para que
+   ambas (contenedor externo y previsualización XLSX) se vean bien. */
+#file-viewer,
+#xlsx-preview {
+  scrollbar-gutter: stable both-edges;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; /* firefox */
+  scrollbar-color: rgba(0,0,0,0.25) transparent;
+}
+
+/* WebKit desktop: tamaño y color del thumb para visibilidad */
+#file-viewer::-webkit-scrollbar,
+#xlsx-preview::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+#file-viewer::-webkit-scrollbar-thumb,
+#xlsx-preview::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.25);
+  border-radius: 9999px;
+}
+#file-viewer::-webkit-scrollbar-track,
+#xlsx-preview::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Resizer handle in the bottom-right corner of the file viewer. */
+#file-viewer .resizer {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 20px;
+  height: 20px;
+  cursor: se-resize;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.06) 25%, transparent 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+}
+#file-viewer .resizer::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.25) 25%, transparent 25%);
+  background-size: 6px 6px;
+  opacity: 0.85;
+  transform: rotate(45deg);
+}

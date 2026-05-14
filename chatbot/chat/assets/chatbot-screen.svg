@@ -1,0 +1,36 @@
+<svg width="465" height="756" viewBox="0 0 465 756" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="465" y2="756" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8CFC4"/>
+      <stop offset="1" stop-color="#ECE5DD"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="232.5" y1="38" x2="232.5" y2="741" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4F4F4"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="shadow" x="28" y="28" width="424" height="720" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="6"/>
+      <feGaussianBlur stdDeviation="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+  <rect width="465" height="756" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="42" y="38" width="395" height="703" rx="10" fill="url(#panel)"/>
+  </g>
+  <path d="M42 48C42 42.4772 46.4772 38 52 38H427C432.523 38 437 42.4772 437 48V93H42V48Z" fill="#0A6A5F"/>
+  <text x="60" y="70" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Chatbot — Estilo WhatsApp</text>
+  <rect x="42" y="93" width="395" height="590" fill="white" fill-opacity="0.5"/>
+  <rect x="42" y="683" width="395" height="58" rx="0" fill="#F8F8F8"/>
+  <line x1="42" y1="683.5" x2="437" y2="683.5" stroke="#D9D9D9"/>
+  <rect x="52" y="692" width="297" height="39" rx="19.5" fill="white" stroke="#C9C9C9"/>
+  <text x="62" y="717" fill="#8A8A8A" font-family="Arial, Helvetica, sans-serif" font-size="14">Escribe un mensaje...</text>
+  <rect x="357" y="691" width="71" height="41" rx="20.5" fill="#0A6A5F"/>
+  <text x="373" y="717" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="14">Enviar</text>
+  <rect x="77" y="120" width="325" height="520" rx="8" fill="#FFFFFF" fill-opacity="0.01" stroke="#EFEFEF" stroke-dasharray="5 7"/>
+  <text x="144" y="390" fill="#D3D3D3" font-family="Arial, Helvetica, sans-serif" font-size="17">Área de conversación</text>
+</svg>

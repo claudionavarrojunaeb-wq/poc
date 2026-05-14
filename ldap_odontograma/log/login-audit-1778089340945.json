@@ -1,0 +1,9 @@
+{
+  "usuario_id": null,
+  "input_login": "nonexistent",
+  "fecha_evento": "2026-05-06T17:42:20.755Z",
+  "tipo_evento": "LOGIN_FAILED",
+  "direccion_ip": "::ffff:127.0.0.1",
+  "user_agent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; es-ES) WindowsPowerShell/5.1.19041.7058",
+  "detalle": "All bind attempts failed"
+}

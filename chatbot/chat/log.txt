@@ -1,0 +1,125 @@
+[2026-04-22T17:31:41.348Z] [INFO] Iniciando servidor | {"port":4000,"database":"test","ollamaUrl":"http://localhost:11434"}
+[2026-04-22T17:31:41.414Z] [INFO] Conexión a PostgreSQL establecida
+[2026-04-22T17:31:41.424Z] [INFO] Extensión vector verificada
+[2026-04-22T17:31:41.427Z] [INFO] Servidor escuchando | {"port":4000}
+[2026-04-22T17:31:45.382Z] [INFO] Solicitud recibida | {"method":"GET","path":"/","ip":"::1"}
+[2026-04-22T17:31:45.385Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/","statusCode":304,"durationMs":3}
+[2026-04-22T17:31:45.395Z] [INFO] Solicitud recibida | {"method":"GET","path":"/style.css","ip":"::1"}
+[2026-04-22T17:31:45.397Z] [INFO] Solicitud recibida | {"method":"GET","path":"/main.js","ip":"::1"}
+[2026-04-22T17:31:45.398Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/style.css","statusCode":304,"durationMs":3}
+[2026-04-22T17:31:45.399Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/main.js","statusCode":304,"durationMs":2}
+[2026-04-22T17:33:31.448Z] [INFO] Modelfile cargado correctamente | {"path":"D:\\_ReactU\\ReactU\\00_chatbot\\Modelfile"}
+[2026-04-22T17:33:31.450Z] [INFO] Iniciando servidor | {"port":4000,"database":"test","ollamaUrl":"http://localhost:11434"}
+[2026-04-22T17:33:31.489Z] [INFO] Conexión a PostgreSQL establecida
+[2026-04-22T17:33:31.491Z] [INFO] Extensión vector verificada
+[2026-04-22T17:33:31.493Z] [INFO] Servidor escuchando | {"port":4000}
+[2026-04-22T17:33:34.685Z] [INFO] Solicitud recibida | {"method":"GET","path":"/","ip":"::1"}
+[2026-04-22T17:33:34.693Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/","statusCode":200,"durationMs":8}
+[2026-04-22T17:33:34.714Z] [INFO] Solicitud recibida | {"method":"GET","path":"/style.css","ip":"::1"}
+[2026-04-22T17:33:34.716Z] [INFO] Solicitud recibida | {"method":"GET","path":"/main.js","ip":"::1"}
+[2026-04-22T17:33:34.717Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/style.css","statusCode":304,"durationMs":3}
+[2026-04-22T17:33:34.718Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/main.js","statusCode":304,"durationMs":2}
+[2026-04-22T17:33:38.661Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:33:38.661Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:33:38.662Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":4}
+[2026-04-22T17:33:39.156Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:33:39.157Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:33:39.206Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:33:39.207Z] [INFO] Contexto construido | {"contextoLength":1573}
+[2026-04-22T17:33:39.207Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1573,"preguntaLength":4}
+[2026-04-22T17:34:36.599Z] [INFO] Respuesta generada | {"respuestaLength":150}
+[2026-04-22T17:34:36.601Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:34:36.603Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":57942}
+[2026-04-22T17:35:03.726Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:35:03.727Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:35:03.727Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":15}
+[2026-04-22T17:35:03.783Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:35:03.783Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:35:03.792Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:35:03.793Z] [INFO] Contexto construido | {"contextoLength":430}
+[2026-04-22T17:35:03.793Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":430,"preguntaLength":15}
+[2026-04-22T17:36:10.971Z] [INFO] Respuesta generada | {"respuestaLength":337}
+[2026-04-22T17:36:10.972Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:36:10.974Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":67248}
+[2026-04-22T17:36:25.995Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:36:25.996Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:36:25.997Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":1}
+[2026-04-22T17:36:26.029Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:36:26.029Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:36:26.037Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:36:26.038Z] [INFO] Contexto construido | {"contextoLength":1713}
+[2026-04-22T17:36:26.038Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1713,"preguntaLength":1}
+[2026-04-22T17:37:26.848Z] [INFO] Respuesta generada | {"respuestaLength":52}
+[2026-04-22T17:37:26.850Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:37:26.852Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":60857}
+[2026-04-22T17:37:50.182Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:37:50.183Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:37:50.184Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":30}
+[2026-04-22T17:37:50.232Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:37:50.232Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:37:50.240Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:37:50.241Z] [INFO] Contexto construido | {"contextoLength":1722}
+[2026-04-22T17:37:50.241Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1722,"preguntaLength":30}
+[2026-04-22T17:38:52.441Z] [INFO] Respuesta generada | {"respuestaLength":321}
+[2026-04-22T17:38:52.442Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:38:52.443Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":62261}
+[2026-04-22T17:39:11.711Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:39:11.712Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:39:11.712Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":26}
+[2026-04-22T17:39:11.755Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:39:11.756Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:39:11.763Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:39:11.764Z] [INFO] Contexto construido | {"contextoLength":1722}
+[2026-04-22T17:39:11.764Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1722,"preguntaLength":26}
+[2026-04-22T17:40:05.743Z] [INFO] Respuesta generada | {"respuestaLength":385}
+[2026-04-22T17:40:05.745Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:40:05.747Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":54036}
+[2026-04-22T17:43:06.897Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:43:06.898Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:43:06.898Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":24}
+[2026-04-22T17:43:06.945Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:43:06.946Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:43:06.957Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:43:06.958Z] [INFO] Contexto construido | {"contextoLength":1722}
+[2026-04-22T17:43:06.959Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1722,"preguntaLength":24}
+[2026-04-22T17:43:53.464Z] [INFO] Respuesta generada | {"respuestaLength":36}
+[2026-04-22T17:43:53.465Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:43:53.466Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":46569}
+[2026-04-22T17:45:11.364Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:45:11.365Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:45:11.365Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":3}
+[2026-04-22T17:45:11.428Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:45:11.429Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:45:11.439Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:45:11.439Z] [INFO] Contexto construido | {"contextoLength":1573}
+[2026-04-22T17:45:11.440Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1573,"preguntaLength":3}
+[2026-04-22T17:46:09.063Z] [INFO] Respuesta generada | {"respuestaLength":89}
+[2026-04-22T17:46:09.065Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:46:09.066Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":57702}
+[2026-04-22T17:46:32.852Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:46:32.853Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:46:32.853Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":55}
+[2026-04-22T17:46:32.914Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:46:32.915Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:46:32.923Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:46:32.924Z] [INFO] Contexto construido | {"contextoLength":1722}
+[2026-04-22T17:46:32.924Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1722,"preguntaLength":55}
+[2026-04-22T17:47:38.352Z] [INFO] Respuesta generada | {"respuestaLength":159}
+[2026-04-22T17:47:38.353Z] [INFO] Respuesta enviada al cliente
+[2026-04-22T17:47:38.354Z] [INFO] Solicitud finalizada | {"method":"POST","path":"/api/chat","statusCode":200,"durationMs":65502}
+[2026-04-22T17:50:28.732Z] [INFO] Solicitud recibida | {"method":"POST","path":"/api/chat","ip":"::1"}
+[2026-04-22T17:50:28.732Z] [INFO] Procesando /api/chat | {"hasPregunta":true}
+[2026-04-22T17:50:28.733Z] [INFO] Solicitando embedding a Ollama | {"endpoint":"http://localhost:11434/api/embeddings","model":"nomic-embed-text","preguntaLength":25}
+[2026-04-22T17:50:28.800Z] [INFO] Embedding recibido | {"dimensions":768}
+[2026-04-22T17:50:28.801Z] [INFO] Ejecutando consulta de similitud | {"topK":5,"sql":"ORDER BY pembedding <=> $1::vector LIMIT 5"}
+[2026-04-22T17:50:28.811Z] [INFO] Resultados recuperados de PostgreSQL | {"rows":5}
+[2026-04-22T17:50:28.812Z] [INFO] Contexto construido | {"contextoLength":1713}
+[2026-04-22T17:50:28.812Z] [INFO] Solicitando generación a Ollama | {"endpoint":"http://localhost:11434/api/generate","model":"deepseek-r1:8b","contextoLength":1713,"preguntaLength":25}
+[2026-04-22T17:51:42.011Z] [INFO] Solicitud recibida | {"method":"GET","path":"/","ip":"::1"}
+[2026-04-22T17:51:42.013Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/","statusCode":304,"durationMs":2}
+[2026-04-22T17:51:42.038Z] [INFO] Solicitud recibida | {"method":"GET","path":"/style.css","ip":"::1"}
+[2026-04-22T17:51:42.042Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/style.css","statusCode":304,"durationMs":4}
+[2026-04-22T17:51:42.045Z] [INFO] Solicitud recibida | {"method":"GET","path":"/main.js","ip":"::1"}
+[2026-04-22T17:51:42.048Z] [INFO] Solicitud finalizada | {"method":"GET","path":"/main.js","statusCode":200,"durationMs":3}
+[2026-04-22T17:51:43.180Z] [INFO] Respuesta generada | {"respuestaLength":206}
+[2026-04-22T17:51:43.182Z] [INFO] Respuesta enviada al cliente

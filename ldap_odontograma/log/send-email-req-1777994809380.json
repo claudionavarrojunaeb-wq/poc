@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-05T15:26:49.380Z",
+  "remoteIp": "::ffff:127.0.0.1",
+  "origin": "http://localhost:5173",
+  "preview": {
+    "to": "claudio.navarro@junaeb.cl",
+    "subject": "Prueba STARTTLS - debug",
+    "hasText": true,
+    "hasHtml": false
+  }
+}

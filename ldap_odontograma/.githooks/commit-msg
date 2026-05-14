@@ -1,0 +1,20 @@
+#!/bin/sh
+# Hook para validar que el mensaje de commit tenga exactamente 10 palabras
+# Uso: git commit -m "palabra1 palabra2 ... palabra10"
+
+MSG_FILE="$1"
+if [ -z "$MSG_FILE" ]; then
+  # nada que validar
+  exit 0
+fi
+
+# Contar palabras (palabra = secuencia de no-espacios)
+WORD_COUNT=$(grep -oE '\S+' "$MSG_FILE" | wc -l | tr -d ' ')
+
+if [ "$WORD_COUNT" -ne 10 ]; then
+  echo "ERROR: El mensaje de commit debe contener exactamente 10 palabras (actual: $WORD_COUNT)."
+  echo "Por favor redacte un mensaje con 10 palabras clave. Ej: 'Fix campo rut validar cuidador actualizar log'"
+  exit 1
+fi
+
+exit 0

@@ -1,0 +1,2 @@
+﻿Conectado a Postgres test
+Probando endpoint http://localhost:11434/api/generate

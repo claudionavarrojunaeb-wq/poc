@@ -1,0 +1,2 @@
+- lee completo docs\csv\nuevos.csv y crea una tabla con las columnas para poder cargar el csv mediante la pagina frontend\src\cargacsv.tsx
+- la pagina frontend\src\cargacsv.tsx debe poder permitir seleccionar un archivo csv y cargarlo a la tabla en el menor tiempo posible
