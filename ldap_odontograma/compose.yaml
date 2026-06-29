@@ -1,0 +1,17 @@
+services:
+  ldap-backend:
+    image: ldap-backend:latest
+    container_name: ldap-backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+
+  ldap-frontend:
+    image: ldap-frontend:latest
+    container_name: ldap-frontend
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    depends_on:
+      - ldap-backend
+      
