@@ -23,7 +23,7 @@
  *   antes de que el cuerpo de este archivo corra. Por eso PORT y CORS_ORIGIN
  *   ya están disponibles cuando se leen abajo.
  */
-
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
@@ -39,6 +39,7 @@ import graphRouter      from './routes/graph.js'
 import csvRouter        from './routes/csv.js'
 import logRouter        from './routes/log.js'
 import { requireAuth } from './middleware/session.js'
+
 
 // Middleware global de errores (debe ir después de todos los routers)
 import { errorHandler } from './middleware/errorHandler.js'
