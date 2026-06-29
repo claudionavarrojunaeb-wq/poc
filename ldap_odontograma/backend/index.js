@@ -24,6 +24,9 @@
  *   ya están disponibles cuando se leen abajo.
  */
 import 'dotenv/config'
+console.log('DISABLE_TURNSTILE=', process.env.DISABLE_TURNSTILE)
+console.log('TURNSTILE_SECRET=', process.env.TURNSTILE_SECRET ? 'SET' : 'UNDEFINED')
+console.log('LDAP_URL=', process.env.LDAP_URL)
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
