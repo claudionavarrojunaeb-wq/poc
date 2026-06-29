@@ -117,7 +117,7 @@ const Login: React.FC = () => {
     setMsg('')
     setLoading(true)
       try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('http://10.162.14.49:4000/api/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
